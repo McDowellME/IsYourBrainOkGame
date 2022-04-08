@@ -30,29 +30,28 @@ questions = {
     }
             }
 
-# build question format
+# ask questions, build question format
 def askquestion(qno) :
     q = questions[qno]["question"]
     a = questions[qno]["choice"]["a"]["answer"]
     b = questions[qno]["choice"]["b"]["answer"]
     c = questions[qno]["choice"]["c"]["answer"]
 
-    question = input(f"\n{q}\nYour choices are: \nA: {a} \nB: {b} \nC: {c} \nYour Answer ->  ").lower()
+    response = input(f"\n{q}\nYour choices are: \nA: {a} \nB: {b} \nC: {c} \nYour Answer ->  ").lower()
 
-    return question
+    return response
 
 # calculate brain_meter by getting score based on response
 def calculatemeter(qno, brain_meter):
     response = ""
+    choices = questions[qno]["choice"]
 
-    while response == "" or response not in questions[qno]["choice"]:
+    while response == "" or response not in choices:
         response = askquestion(qno)
-        if response in questions[qno]["choice"]:
-            brain_meter += questions[qno]["choice"][response]["score"]
-            break            
-        else:
-            print("\nYour brain is not ok. Try again") 
+        if response == "" or response not in choices:
+            print("\nYour brain is not ok. Try again.") 
 
+    brain_meter += choices[response]["score"]
     return brain_meter
 
 # tell user how their brain scored
@@ -61,9 +60,8 @@ def isyourbrainok() :
     brain_meter = 0
 
     # run for each question, redefine brain_meter after each
-    brain_meter = calculatemeter("q1", brain_meter)
-    brain_meter = calculatemeter("q2", brain_meter)
-    brain_meter = calculatemeter("q3", brain_meter)
+    for question in questions:
+        brain_meter = calculatemeter(question, brain_meter)
 
     print()
 
