@@ -8,6 +8,6 @@ Console based game that asks a few questions to determine if your brain is ok af
 
 I based this off of an SNL gameshow sketch.
 
-Currently "works" but doesn't account for incorrect user inputs and not organized as well as I would like.
+Started off rough and has been refactored along the way to account for user input errors and for efficiency and organization.
 
 Work in progress
